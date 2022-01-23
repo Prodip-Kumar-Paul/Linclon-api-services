@@ -33,7 +33,7 @@ export const getFollowersDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.FOLLOWERS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -52,7 +52,7 @@ export const getFollowingsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.FOLLOWING_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -71,7 +71,7 @@ export const getAllRepoDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.USER_ALL_REPO_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -92,7 +92,7 @@ export const getParticularRepo = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.PARTICULAR_REPO_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -111,7 +111,7 @@ export const getCollaboratorsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.COLLABORATORS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -130,7 +130,7 @@ export const getIssuesDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.ISSUES_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -149,7 +149,7 @@ export const getLanguagesDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.LANGUAGES_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -168,7 +168,7 @@ export const getContributorsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.CONTRIBUTORS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -187,7 +187,7 @@ export const getCommitsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.COMMITS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -206,7 +206,7 @@ export const getPRsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.PRS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -225,7 +225,7 @@ export const getContentsDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.CONTENTS_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
@@ -244,7 +244,7 @@ export const getReadmeDetails = async (req, res, next) => {
     const response = await axios({
       method: "get",
       url: allApis.particular_repo_details.README_DETAILS,
-      headers: req.headers.authorization,
+      headers: req.githubToken,
     });
 
     res.status(200).json({
