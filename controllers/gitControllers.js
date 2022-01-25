@@ -1,5 +1,6 @@
 import axios from "axios";
-import { allApis } from "../utils/apis.js";
+// import {User} from "../models/UserModel.js";
+import  apis  from "../utils/apis.js";
 export const gitControllers = async (req, res, next) => {
   try {
     console.log("here......");
@@ -11,16 +12,21 @@ export const gitControllers = async (req, res, next) => {
 
 export const getUserDetails = async (req, res, next) => {
   try {
+    // console.log("this is token"+req.githubToken);
     const response = await axios({
       method: "get",
-      url: allApis.USER_PROFILE_DETAILS,
-      headers: req.headers.authorization,
+      url: apis.USER_PROFILE_DETAILS,
+      
+      headers: {'Access-Control-Allow-Origin': '*'},
+      // mode: 'cors',
+      // headers: req.githubToken,
     });
-
+    console.log("in");
+    
     res.status(200).json({
       status: true,
       message: "Get details of a user",
-      data: response.data,
+      result: response.data,
     });
   } catch (err) {
     console.log(err);
@@ -28,232 +34,323 @@ export const getUserDetails = async (req, res, next) => {
   }
 };
 
-export const getFollowersDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.FOLLOWERS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getFollowersDetails = async (req, res, next) => {
+//   try {
+//     const response = await axios({
+//       method: "get",
+//       url: apis.FOLLOWERS_DETAILS,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of the followers of  a user",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of the followers of  a user",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getFollowingsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.FOLLOWING_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getFollowingsDetails = async (req, res, next) => {
+//   try {
+//     const response = await axios({
+//       method: "get",
+//       url: apis.FOLLOWING_DETAILS,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of the followings of  a user",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of the followings of  a user",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getAllRepoDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.USER_ALL_REPO_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getAllRepoDetails = async (req, res, next) => {
+//   try {
+//     const response = await axios({
+//       method: "get",
+//       url: apis.USER_ALL_REPO_DETAILS,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the repos of a user",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the repos of a user",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
 //Particular repo details
 
-export const getParticularRepo = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.PARTICULAR_REPO_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getParticularRepo = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of a particular repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of a particular repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getCollaboratorsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.COLLABORATORS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getCollaboratorsDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/collaborators`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the collaborators in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the collaborators in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getIssuesDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.ISSUES_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getIssuesDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/issues`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the issues in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the issues in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getLanguagesDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.LANGUAGES_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getLanguagesDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/languages`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the languages in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the languages in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getContributorsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.CONTRIBUTORS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getContributorsDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/contributors`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the contributors in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the contributors in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getCommitsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.COMMITS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getCommitsDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/commits`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the commits in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the commits in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getPRsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.PRS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getPRsDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/pulls`,
+//       headers: req.githubToken,
+//     });
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the PRs in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the PRs in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-export const getContentsDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.CONTENTS_DETAILS,
-      headers: req.githubToken,
-    });
+// export const getContentsDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of all the contents in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/contents`,
+//       headers: req.githubToken,
+//     });
 
-export const getReadmeDetails = async (req, res, next) => {
-  try {
-    const response = await axios({
-      method: "get",
-      url: allApis.particular_repo_details.README_DETAILS,
-      headers: req.githubToken,
-    });
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of all the contents in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };
 
-    res.status(200).json({
-      status: true,
-      message: "Get details of README in the repo",
-      data: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-};
+// export const getReadmeDetails = async (req, res, next) => {
+//   try {
+//     const id=req.body;
+//     const {projectName}= req.body;
+//     const user = await User.find({githubId:id})
+//       if(!user)
+//       {
+//         const error = new Error("No user found");
+//          error.statusCode = 400;
+//          throw error;
+//       }
+   
+//     const response = await axios({
+//       method: "get",
+//       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/main/README.md`,
+//       headers: req.githubToken,
+//     });
+
+//     res.status(200).json({
+//       status: true,
+//       message: "Get details of README in the repo",
+//       data: response.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     next(err);
+//   }
+// };

@@ -49,8 +49,8 @@ export const signUpOrLoginController = async (req, res, next) => {
       } else {
          const user = new User({
             email,
-            userType,
-            password: "123",
+            userType
+            
          });
          await user.save();
          token = jwt.sign(
