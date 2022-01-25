@@ -1,4 +1,4 @@
-exports.testServer = async (req, res, next) => {
+const testServer = async (req, res, next) => {
   try {
     res.json({
       status: true,
@@ -12,3 +12,5 @@ exports.testServer = async (req, res, next) => {
     });
   }
 };
+
+export default testServer;

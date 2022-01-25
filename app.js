@@ -1,19 +1,23 @@
-require("dotenv").config();
-const express = require("express");
-const compression = require("compression");
-const rateLimit = require("express-rate-limit");
-const helmet = require("helmet");
-const logger = require("morgan");
-const cors = require("cors");
-const xss = require("xss-clean");
-const hpp = require("hpp");
-const mongoSanitize = require("express-mongo-sanitize");
-const path = require("path");
+import express from "express";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import logger from "morgan";
+import cors from "cors";
+import xss from "xss-clean";
+import hpp from "hpp";
+import mongoSanitize from "express-mongo-sanitize";
+import { fileURLToPath } from "url";
+import path, { dirname } from "node:path";
 
-const { globalErrorHandler } = require("./utils/errorHandler");
+import { globalErrorHandler } from "./utils/errorHandler.js";
 
-const testApis = require("./apis/testApis");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
+import testApis from "./apis/testApis.js";
+import authApis from "./apis/authApis.js";
+import gitApis from "./apis/gitApis.js";
 //app  and middleware
 const app = express();
 app.use(cors());
@@ -66,7 +70,16 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  next();
+});
+
 app.use("/api/v1/test", testApis);
+app.use("/api/v1/auth", authApis);
+app.use("/api/v1/git", gitApis);
 
 // EROOR HANDLING MIDDLEWARE
 app.use(globalErrorHandler);
@@ -78,4 +91,4 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports = app;
+export default app;
