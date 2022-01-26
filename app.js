@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 
 import testApis from "./apis/testApis.js";
 import authApis from "./apis/authApis.js";
-
+import gitApis from "./apis/gitApis.js";
 //app  and middleware
 const app = express();
 app.use(cors());
@@ -70,8 +70,16 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+app.use((req, res, next) => {
+   res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Methods", "*");
+   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+   next();
+});
+
 app.use("/api/v1/test", testApis);
 app.use("/api/v1/auth", authApis);
+app.use("/api/v1/user", gitApis);
 
 // EROOR HANDLING MIDDLEWARE
 app.use(globalErrorHandler);
