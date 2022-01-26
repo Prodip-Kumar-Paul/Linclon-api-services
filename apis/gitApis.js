@@ -7,7 +7,7 @@ const router = express.Router();
 //git api
 // authentication required
 
-router.get("/user",isAuthenticated, getUserDetails);
+router.get("/user_profile",isAuthenticated, getUserDetails);
 // router.get("/user/followers",[isAuthenticated], getFollowersDetails);
 // router.get("/user/followings",[isAuthenticated], getFollowingsDetails);
 // router.get("/getallrepos",[isAuthenticated], getAllRepoDetails);

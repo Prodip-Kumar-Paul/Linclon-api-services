@@ -1,37 +1,43 @@
 import axios from "axios";
-// import {User} from "../models/UserModel.js";
-import  apis  from "../utils/apis.js";
+import User from "../models/UserModel.js";
+import apis from "../utils/apis.js";
 export const gitControllers = async (req, res, next) => {
-  try {
-    console.log("here......");
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
+   try {
+      console.log("here......");
+   } catch (err) {
+      console.log(err);
+      next(err);
+   }
 };
 
 export const getUserDetails = async (req, res, next) => {
-  try {
-    // console.log("this is token"+req.githubToken);
-    const response = await axios({
-      method: "get",
-      url: apis.USER_PROFILE_DETAILS,
-      
-      headers: {'Access-Control-Allow-Origin': '*'},
-      // mode: 'cors',
-      // headers: req.githubToken,
-    });
-    console.log("in");
-    
-    res.status(200).json({
-      status: true,
-      message: "Get details of a user",
-      result: response.data,
-    });
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
+   try {
+      const response = await axios({
+         method: "get",
+         url: apis.USER_PROFILE_DETAILS,
+         headers: {
+            authorization: "Bearer " + req.githubToken,
+         },
+      });
+
+      await User.updateMany(
+         { _id: req.id },
+         {
+            githubId: response.data.id,
+            githubUserName: response.data.login,
+            githubNodeId: response.data.node_id,
+         }
+      );
+
+      res.status(200).json({
+         message: "User Profile fetched successfully!",
+         status: true,
+         data: response.data,
+      });
+   } catch (err) {
+      console.log(err);
+      next(err);
+   }
 };
 
 // export const getFollowersDetails = async (req, res, next) => {
@@ -104,7 +110,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}`,
@@ -133,7 +139,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/collaborators`,
@@ -162,7 +168,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/issues`,
@@ -191,7 +197,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/languages`,
@@ -220,7 +226,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/contributors`,
@@ -249,7 +255,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/commits`,
@@ -278,7 +284,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/pulls`,
@@ -307,7 +313,6 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
 
 //     const response = await axios({
 //       method: "get",
@@ -337,7 +342,7 @@ export const getUserDetails = async (req, res, next) => {
 //          error.statusCode = 400;
 //          throw error;
 //       }
-   
+
 //     const response = await axios({
 //       method: "get",
 //       url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/main/README.md`,

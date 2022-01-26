@@ -20,6 +20,9 @@ const userSchema = new Schema(
       githubUserName: {
          type: String,
       },
+      githubNodeId: {
+         type: String,
+      },
       isDeleted: {
          type: Boolean,
          default: false,
