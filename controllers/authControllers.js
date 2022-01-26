@@ -50,7 +50,6 @@ export const signUpOrLoginController = async (req, res, next) => {
          const user = new User({
             email,
             userType
-            
          });
          await user.save();
          token = jwt.sign(
