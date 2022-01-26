@@ -5,7 +5,7 @@ import config from "../config/config.js";
 export const isAuthenticated = async (req, res, next) => {
    try {
       const authToken = req.get("Authorization");
-
+      //  console.log(authToken);
       if (!authToken) {
          const error = new Error("No authentication token attached");
          error.statusCode = 401;
@@ -30,6 +30,7 @@ export const isAuthenticated = async (req, res, next) => {
 
       req.id = decodedToken.id;
       req.githubToken = decodedToken.githubToken;
+      // console.log(req.githubToken);
       req.userType = decodedToken.userType;
      
       next();
