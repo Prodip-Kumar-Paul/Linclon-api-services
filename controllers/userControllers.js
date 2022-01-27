@@ -29,7 +29,7 @@ export const getUserDetails = async (req, res, next) => {
           githubUserName: response.data.login,
           githubNodeId: response.data.node_id,
         }
-      ).lean();
+      );
     }
 
     res.status(200).json({
@@ -62,7 +62,7 @@ export const getFollowersDetails = async (req, res, next) => {
           githubUserName: response.data.login,
           githubNodeId: response.data.node_id,
         }
-      ).lean();
+      );
     }
 
     res.status(200).json({
@@ -95,7 +95,7 @@ export const getFollowingsDetails = async (req, res, next) => {
           githubUserName: response.data.login,
           githubNodeId: response.data.node_id,
         }
-      ).lean();
+      );
     }
 
     res.status(200).json({
@@ -127,7 +127,7 @@ export const getAllRepoDetails = async (req, res, next) => {
           githubUserName: response.data.login,
           githubNodeId: response.data.node_id,
         }
-      ).lean();
+      );
     }
 
     res.status(200).json({
