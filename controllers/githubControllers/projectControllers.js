@@ -1,6 +1,6 @@
 import axios from "axios";
-import User from "../models/UserModel.js";
-import apis from "../utils/apis.js";
+import User from "../../models/UserModel.js";
+import apis from "../../utils/apis.js";
 
 export const getParticularRepo = async (req, res, next) => {
   try {
@@ -21,8 +21,6 @@ export const getParticularRepo = async (req, res, next) => {
         authorization: "Bearer " + req.githubToken,
       },
     });
-
-  
 
     res.status(200).json({
       status: true,
@@ -247,24 +245,7 @@ export const getReadmeDetails = async (req, res, next) => {
       error.statusCode = 400;
       throw error;
     }
-    const response = await axios({
-      method: "get",
-      url: `${apis.REPO_BASE_DETAILS}/${user.githubUserName}/${projectName}/contents`,
-      headers: {
-        authorization: "Bearer " + req.githubToken,
-      },
-    });
-    let readme = 0;
-    response.data.forEach((element) => {
-      if (element.name === "README.md") {
-        readme = 1;
-      }
-    });
-    if (!readme) {
-      const error = new Error("No Readme file found");
-      error.statusCode = 400;
-      throw error;
-    }
+
     const resp = await axios({
       method: "get",
       url: `${apis.README_DETAILS}/${user.githubUserName}/${projectName}/main/README.md`,

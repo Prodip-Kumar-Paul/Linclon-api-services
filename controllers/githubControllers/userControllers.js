@@ -1,6 +1,6 @@
 import axios from "axios";
-import User from "../models/UserModel.js";
-import apis from "../utils/apis.js";
+import User from "../../models/UserModel.js";
+import apis from "../../utils/apis.js";
 export const gitControllers = async (req, res, next) => {
   try {
     console.log("here......");
