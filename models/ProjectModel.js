@@ -26,7 +26,7 @@ const projectSchema = new Schema(
       required: true,
     },
     tags: {
-      type: String,
+      type: Array,
     },
     urgency: {
       type: String,

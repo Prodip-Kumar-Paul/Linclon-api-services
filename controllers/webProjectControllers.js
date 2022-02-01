@@ -4,10 +4,9 @@ import axios from "axios";
 import apis from "../utils/apis.js";
 export const postProject = async (req, res, next) => {
   try {
-    const { name } = req.body;
-    const { description } = req.body;
-    const { teamSize } = req.body;
-    const { projectName } = req.body;
+    const { name, description, teamSize, projectName, tags, urgency } =
+      req.body;
+
     const user = await User.findOne({ _id: req.id }).lean();
     // console.log(user);
     if (!user) {
@@ -27,7 +26,7 @@ export const postProject = async (req, res, next) => {
       githubId: response.data.id,
     }).lean();
     // console.log(alreadyPresent.length);
-    if (alreadyPresent.length === 1 && (response.data.isDeleted)==false) {
+    if (alreadyPresent.length === 1 && response.data.isDeleted == false) {
       const err = new Error("Already Submitted");
       err.statusCode = 409;
       throw err;
@@ -36,127 +35,90 @@ export const postProject = async (req, res, next) => {
       name: name,
       description: description,
       teamSize: teamSize,
+      tags: tags,
+      urgency: urgency,
       ownerId: user.githubId,
       githubDetails: response.data,
       githubId: response.data.id,
     });
-    post.save().then((result) => {
-      res.status(201).json({
-        status: true,
-        message: "Created project successfully.",
-        data: result,
-      });
+    const result = await post.save();
+    res.status(201).json({
+      status: true,
+      message: "Created project successfully.",
+      data: result,
     });
   } catch (err) {
-    console.log(err);
     next(err);
   }
 };
 
 export const getAllProjects = async (req, res, next) => {
-  await Project.find({isDeleted:false})
-    .then((posts) => {
-      res.status(200).json({
-        message: "All Projects Fetched Successfully",
-        status: true,
-        data: posts,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    const posts = await Project.find({ isDeleted: false });
+
+    res.status(200).json({
+      message: "All Projects Fetched Successfully",
+      status: true,
+      data: posts,
     });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const getParticularProject = async (req, res, next) => {
-  const id = req.params.id;
-  await Project.findById(id)
-    .then((post) => {
-      if (!post) {
-        const err = new Error("No Post Found");
-        err.statusCode = 404;
-        throw err;
-      }
-      res.status(200).json({
-        message: "Particular Project Fetched Successfully",
-        status: true,
-        data: post,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    const id = req.params.id;
+    const post = await Project.findOne({ _id: id, isDeleted: false });
+
+    res.status(200).json({
+      message: "Particular Project Fetched Successfully",
+      status: true,
+      data: post,
     });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const updateProject = async (req, res, next) => {
-  const id = req.params.id;
-  const { name, description, teamSize } = req.body;
-  await Project.findById(id)
-    .then((post) => {
-      if (!post) {
-        const err = new Error("No Post Found");
-        err.statusCode = 404;
-        throw err;
-      }
-      // console.log(teamSize.length);
-      (post.name = name),
-        (post.description = description),
-        (post.teamSize = teamSize);
-      return post.save();
-    })
-    .then((result) => {
-      res.status(200).json({
-        message: "Project Updated Successfully",
-        status: true,
-        data: result,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    const id = req.params.id;
+    const { name, description, teamSize,tags,urgency } = req.body;
+    const post = await Project.findOne({ _id: id, isDeleted: false });
+
+    // console.log(teamSize.length);
+    post.name = name;
+    post.description = description;
+    post.teamSize = teamSize;
+    post.urgency=urgency;
+    post.tags=tags;
+    const result = await post.save();
+    // console.log(result);
+    res.status(200).json({
+      message: "Project Updated Successfully",
+      status: true,
+      data: result,
     });
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const deleteProject = async (req, res, next) => {
-  const id = req.params.id;
-  await Project.findById(id)
-    .then((post) => {
-      if (!post) {
-        const err = new Error("No Post Found");
-        err.statusCode = 404;
-        throw err;
-      }
-      if(post.isDeleted==true)
-      {
-         const err = new Error("No Post Found");
-        err.statusCode = 404;
-        throw err;
-      }
-      post.isDeleted=true;
-      return post.save();
-    })
-    .then((result) => {
-      res.status(200).json({
-        message: "Project Deleted Successfully",
-        status: true,
-        data: result,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
+  try {
+    const id = req.params.id;
+    const post = await Project.findOne({ _id: id, isDeleted: false });
+
+    post.isDeleted = true;
+    const result = await post.save();
+
+    res.status(200).json({
+      message: "Project Deleted Successfully",
+      status: true,
+      data: result,
     });
+  } catch (err) {
+    next(err);
+  }
 };
