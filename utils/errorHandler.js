@@ -1,6 +1,6 @@
-const { validationResult } = require("express-validator");
+import { validationResult } from "express-validator";
 
-exports.errorHandler = (req, res, next) => {
+const errorHandler = (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -44,7 +44,7 @@ const sendErrorProd = (err, req, res) => {
   });
 };
 
-exports.globalErrorHandler = (err, req, res, next) => {
+const globalErrorHandler = (err, req, res, next) => {
   console.log(err);
 
   err.statusCode = err.statusCode || 500;
@@ -57,3 +57,5 @@ exports.globalErrorHandler = (err, req, res, next) => {
     sendErrorProd(err, req, res);
   }
 };
+
+export { globalErrorHandler, errorHandler };
