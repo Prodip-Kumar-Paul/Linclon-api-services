@@ -17,7 +17,9 @@ const __dirname = dirname(__filename);
 
 import testApis from "./apis/testApis.js";
 import authApis from "./apis/authApis.js";
-import gitApis from "./apis/gitApis.js";
+import userApis from "./apis/Github/userApis.js";
+import projectApis from "./apis/Github/projectApis.js";
+import webProjectApis  from "./apis/webProjectApis.js";
 //app  and middleware
 const app = express();
 app.use(cors());
@@ -79,7 +81,9 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/test", testApis);
 app.use("/api/v1/auth", authApis);
-app.use("/api/v1/user", gitApis);
+app.use("/api/v1/user", userApis);
+app.use("/api/v1/project", projectApis);
+app.use("/api/v1/webproject",webProjectApis);
 
 // EROOR HANDLING MIDDLEWARE
 app.use(globalErrorHandler);
