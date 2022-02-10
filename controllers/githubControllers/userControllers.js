@@ -52,18 +52,7 @@ export const getFollowersDetails = async (req, res, next) => {
         authorization: "Bearer " + req.githubToken,
       },
     });
-
-    const user = await User.findOne({ _id: req.id }).lean();
-    if (!user.githubId) {
-      await User.updateMany(
-        { _id: req.id },
-        {
-          githubId: response.data.id,
-          githubUserName: response.data.login,
-          githubNodeId: response.data.node_id,
-        }
-      );
-    }
+    console.log(response.data);
 
     res.status(200).json({
       status: true,
@@ -86,18 +75,6 @@ export const getFollowingsDetails = async (req, res, next) => {
       },
     });
 
-    const user = await User.findOne({ _id: req.id }).lean();
-    if (!user.githubId) {
-      await User.updateMany(
-        { _id: req.id },
-        {
-          githubId: response.data.id,
-          githubUserName: response.data.login,
-          githubNodeId: response.data.node_id,
-        }
-      );
-    }
-
     res.status(200).json({
       status: true,
       message: "Get details of the followings of  a user",
@@ -118,22 +95,27 @@ export const getAllRepoDetails = async (req, res, next) => {
         authorization: "Bearer " + req.githubToken,
       },
     });
-    const user = await User.findOne({ _id: req.id }).lean();
-    if (!user.githubId) {
-      await User.updateMany(
-        { _id: req.id },
-        {
-          githubId: response.data.id,
-          githubUserName: response.data.login,
-          githubNodeId: response.data.node_id,
-        }
-      );
-    }
 
     res.status(200).json({
       status: true,
       message: "Get details of all the repos of a user",
       data: response.data,
+    });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+export const updateImageUrl = async (req, res, next) => {
+  try {
+    const { imageUrl } = req.body;
+    //
+    await User.updateOne({ _id: req.id }, { imageUrl: imageUrl });
+    const user = await User.findOne({ _id: req.id }).lean();
+    res.status(200).json({
+      status: true,
+      message: "Update iamge of the  user",
+      data: user,
     });
   } catch (err) {
     console.log(err);

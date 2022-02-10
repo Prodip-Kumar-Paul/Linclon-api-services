@@ -7,6 +7,9 @@ const userSchema = new Schema(
          type: String,
          required: true,
       },
+      imageUrl:{
+         type:String
+      },
       userType: {
          type: String,
          required: true,

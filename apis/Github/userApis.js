@@ -4,6 +4,7 @@ import {
   getFollowersDetails,
   getFollowingsDetails,
   getUserDetails,
+  updateImageUrl,
 } from "../../controllers/githubControllers/userControllers.js";
 
 import { isAuthenticated } from "../../middlewares/isAuth.js";
@@ -16,5 +17,6 @@ router.get("/user_profile", isAuthenticated, getUserDetails);
 router.get("/followers", isAuthenticated, getFollowersDetails);
 router.get("/followings", isAuthenticated, getFollowingsDetails);
 router.get("/repos", isAuthenticated, getAllRepoDetails);
+router.put("/updateimage",isAuthenticated,updateImageUrl);
 
 export default router;
