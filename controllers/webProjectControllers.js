@@ -25,8 +25,9 @@ export const postProject = async (req, res, next) => {
     const alreadyPresent = await Project.find({
       githubId: response.data.id,
     }).lean();
-    // console.log(alreadyPresent.length);
-    if (alreadyPresent.length === 1 && response.data.isDeleted == false) {
+    // console.log();
+    // console.log(response.data);
+    if (alreadyPresent.length >0 && alreadyPresent[0].isDeleted == false) {
       const err = new Error("Already Submitted");
       err.statusCode = 409;
       throw err;
@@ -55,7 +56,7 @@ export const postProject = async (req, res, next) => {
 export const getAllProjects = async (req, res, next) => {
   try {
     const posts = await Project.find({ isDeleted: false });
-
+    // console.log(posts);
     res.status(200).json({
       message: "All Projects Fetched Successfully",
       status: true,
@@ -85,9 +86,20 @@ export const updateProject = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { name, description, teamSize,tags,urgency } = req.body;
+    
     const post = await Project.findOne({ _id: id, isDeleted: false });
 
+    console.log(post);
+
+
     // console.log(teamSize.length);
+    
+    if(!post)
+    {
+      const error = new Error("No post found");
+      error.statusCode = 400;
+      throw error;
+    }
     post.name = name;
     post.description = description;
     post.teamSize = teamSize;
