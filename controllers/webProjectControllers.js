@@ -4,11 +4,11 @@ import axios from "axios";
 import apis from "../utils/apis.js";
 export const postProject = async (req, res, next) => {
   try {
-    const { name, description, teamSize, projectName, tags, urgency } =
+    const { name, description, teamSize, projectName, tags,domain, urgency } =
       req.body;
 
     const user = await User.findOne({ _id: req.id }).lean();
-    // console.log(user);
+    console.log(user);
     if (!user) {
       const error = new Error("No user found");
       error.statusCode = 400;
@@ -37,6 +37,7 @@ export const postProject = async (req, res, next) => {
       description: description,
       teamSize: teamSize,
       tags: tags,
+      domain:domain,
       urgency: urgency,
       ownerId: user.githubId,
       githubDetails: response.data,
