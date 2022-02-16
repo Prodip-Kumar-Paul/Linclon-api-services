@@ -9,7 +9,7 @@ export const domainSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+      // required: true,
     },
     isDeleted: {
       type: Boolean,
@@ -28,4 +28,4 @@ export const domainSchema = new Schema(
   }
 );
 
-export const Domain = mongoose.model("Domain", domainSchema);
+export default mongoose.model("Domain", domainSchema);
