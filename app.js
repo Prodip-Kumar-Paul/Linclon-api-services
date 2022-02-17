@@ -7,7 +7,7 @@ import cors from "cors";
 import xss from "xss-clean";
 import hpp from "hpp";
 import mongoSanitize from "express-mongo-sanitize";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 import path, { dirname } from "node:path";
 
 import { globalErrorHandler } from "./utils/errorHandler.js";
