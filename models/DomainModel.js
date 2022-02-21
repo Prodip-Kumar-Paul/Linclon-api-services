@@ -9,18 +9,14 @@ export const domainSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false,
+      // required: true,
     },
     imageUrl: {
       type: String,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {

@@ -4,11 +4,11 @@ import axios from "axios";
 import apis from "../utils/apis.js";
 export const postProject = async (req, res, next) => {
   try {
-    const { name, description, teamSize, projectName, tags,domain, urgency } =
+    const { name, description, teamSize, projectName,domain, urgency } =
       req.body;
 
     const user = await User.findOne({ _id: req.id }).lean();
-    console.log(user);
+    // console.log(user);
     if (!user) {
       const error = new Error("No user found");
       error.statusCode = 400;
@@ -22,6 +22,7 @@ export const postProject = async (req, res, next) => {
         authorization: "Bearer " + req.githubToken,
       },
     });
+    // console.log(response.data);
     const alreadyPresent = await Project.find({
       githubId: response.data.id,
     }).lean();
@@ -36,7 +37,6 @@ export const postProject = async (req, res, next) => {
       name: name,
       description: description,
       teamSize: teamSize,
-      tags: tags,
       domain:domain,
       urgency: urgency,
       ownerId: user.githubId,
@@ -71,7 +71,7 @@ export const getAllProjects = async (req, res, next) => {
 export const getParticularProject = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const post = await Project.findOne({ _id: id, isDeleted: false });
+    const post = await Project.findOne({ _id: id, isDeleted: false }).populate("domainId");
 
     res.status(200).json({
       message: "Particular Project Fetched Successfully",

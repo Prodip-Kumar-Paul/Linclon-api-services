@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-
 const projectSchema = new Schema(
   {
     name: {
@@ -27,12 +26,24 @@ const projectSchema = new Schema(
       type: Number,
       required: true,
     },
-    tag: {
-      skills: [{ skillId: { type: Schema.Types.ObjectId,ref:'Skill', required: true } }],
-    },
-   domain: {
-      domains: [{ domainId: { type: Schema.Types.ObjectId,ref:'Domain', required: true } }],
-    },
+    // domain: [
+    //   {
+    //     domainId: {
+    //       type: mongoose.Types.ObjectId,
+    //       ref: "Domain",
+    //       required: true,
+    //     },
+    //   },
+    // ],
+    // domainId: {
+    //   type: Array,
+    //   ref: "Domain",
+    //   required: true,
+    // },
+
+    //  domain: {
+    //     type:Array[{ domainId: { type: Schema.Types.ObjectId,ref:'Domain', required: true } }]
+    //   },
     urgency: {
       type: String,
     },
