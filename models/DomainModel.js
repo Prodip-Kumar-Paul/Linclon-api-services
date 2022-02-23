@@ -11,12 +11,16 @@ export const domainSchema = new Schema(
       type: String,
       // required: true,
     },
-    imageUrl: {
-      type: String,
-    },
     isDeleted: {
       type: Boolean,
       default: false,
+    },
+    imageUrl: {
+      type: String,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
@@ -24,4 +28,4 @@ export const domainSchema = new Schema(
   }
 );
 
-export const Domain = mongoose.model("Domain", domainSchema);
+export default mongoose.model("Domain", domainSchema);
