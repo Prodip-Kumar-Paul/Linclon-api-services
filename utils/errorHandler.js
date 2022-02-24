@@ -51,9 +51,11 @@ const globalErrorHandler = (err, req, res, next) => {
    err.status = err.status || false;
    err.data = err.data || [];
 
-   if (process.env.NODE_ENV.trim() === "dev") {
+   if (process.env.NODE_ENV === "dev ") {
       sendErrorDev(err, req, res);
-   } else if (process.env.NODE_ENV.trim() === "prod") {
+   } else if (process.env.NODE_ENV === "prod ") {
+      sendErrorProd(err, req, res);
+   } else {
       sendErrorProd(err, req, res);
    }
 };
