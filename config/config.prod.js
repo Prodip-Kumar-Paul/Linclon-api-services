@@ -5,12 +5,7 @@ import path, { dirname } from "node:path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 dotenv.config({
-   path: path.join(
-      __dirname,
-      `config.${
-         process.env.NODE_ENV ? process.env.NODE_ENV.trim() : "prod"
-      }.env`
-   ),
+   path: path.join(__dirname, `config.${process.env.NODE_ENV.trim()}.env`),
 });
 
 const configProd = {

@@ -6,16 +6,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 dotenv.config({
-   path: path.join(
-      __dirname,
-      `config.${
-         process.env.NODE_ENV ? process.env.NODE_ENV.trim() : "prod"
-      }.env`
-   ),
+   path: path.join(__dirname, `config.${process.env.NODE_ENV.trim()}.env`),
 });
 // console.log(
 //    "ENV file path --> ",
-//    path.join(__dirname, `config.${process.env.NODE_ENV?process.env.NODE_ENV.trim():"prod"}.env`)
+//    path.join(__dirname, `config.${process.env.NODE_ENV.trim()}.env`)
 // );
 
 import configDev from "./config.dev.js";
@@ -23,11 +18,9 @@ import configProd from "./config.prod.js";
 
 let config = {};
 
-if (process.env.NODE_ENV === "dev ") {
+if (process.env.NODE_ENV.trim() === "dev") {
    config = { ...configDev };
-} else if (process.env.NODE_ENV === "prod ") {
-   config = { ...configProd };
-} else {
+} else if (process.env.NODE_ENV.trim() === "prod") {
    config = { ...configProd };
 }
 // console.log(config);
