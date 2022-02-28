@@ -18,10 +18,6 @@ export const domainSchema = new Schema(
     imageUrl: {
       type: String,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
   },
   {
     timestamps: true,

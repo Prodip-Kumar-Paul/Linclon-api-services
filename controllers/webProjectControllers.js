@@ -5,11 +5,11 @@ import axios from "axios";
 import apis from "../utils/apis.js";
 export const postProject = async (req, res, next) => {
    try {
-      const { name, description, teamSize, projectName, domains, urgency } =
+      const { name, description, teamSize, projectName, domains, urgency,tags } =
          req.body;
 
       const user = await User.findOne({ _id: req.id }).lean();
-      console.log(user);
+      // console.log(user);
       if (!user) {
          const error = new Error("No user found");
          error.statusCode = 400;
@@ -26,7 +26,7 @@ export const postProject = async (req, res, next) => {
       const alreadyPresent = await Project.find({
          githubId: response.data.id,
       }).lean();
-      console.log(response.data);
+      // console.log(response.data);
       if (alreadyPresent.length > 0 && alreadyPresent[0].isDeleted == false) {
          const err = new Error("Already Submitted");
          err.statusCode = 409;
@@ -36,7 +36,7 @@ export const postProject = async (req, res, next) => {
          name: name,
          description: description,
          teamSize: teamSize,
-         // tags: tags,
+         tags,
          domains,
          urgency: urgency,
          ownerId: user.githubId,

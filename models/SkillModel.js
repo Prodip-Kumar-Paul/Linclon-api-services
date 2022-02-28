@@ -15,10 +15,6 @@ export const skillSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
   },
   {
     timestamps: true,
