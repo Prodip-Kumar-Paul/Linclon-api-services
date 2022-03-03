@@ -52,7 +52,7 @@ mongoose
    })
    .catch((err) => console.log(err));
 
-const port = config.PORT || 8080;
+const port = process.env.PORT || config.PORT || 8080;
 const server = app.listen(port, () => {
    console.log(
       `Server started on PORT: ${port} in ${process.env.NODE_ENV.trim().toUpperCase()} mode`

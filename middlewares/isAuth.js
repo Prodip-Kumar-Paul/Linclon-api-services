@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 
-
 export const isAuthenticated = async (req, res, next) => {
    try {
       const authToken = req.get("Authorization");
@@ -32,7 +31,7 @@ export const isAuthenticated = async (req, res, next) => {
       req.githubToken = decodedToken.githubToken;
       // console.log(req.githubToken);
       req.userType = decodedToken.userType;
-     
+
       next();
    } catch (err) {
       next(err);
@@ -70,11 +69,11 @@ export const isAuthenticatedAndAdmin = async (req, res, next) => {
          error.statusCode = 401;
          throw error;
       }
-     
+
       req.id = decodedToken.id;
       req.userType = decodedToken.userType;
       req.githubToken = decodedToken.githubToken;
-     
+
       next();
    } catch (err) {
       next(err);
