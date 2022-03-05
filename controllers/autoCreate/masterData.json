@@ -1,0 +1,10 @@
+{
+   "domainData": [{ "name": "web" }, { "name": "app" }],
+   "skillData": [
+      { "name": "c++" },
+      { "name": "java" },
+      { "name": "javascript" },
+      { "name": "nodejs" },
+      { "name": "react" }
+   ]
+}

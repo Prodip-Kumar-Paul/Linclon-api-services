@@ -49,7 +49,7 @@ export const signUpOrLoginController = async (req, res, next) => {
       } else {
          const user = new User({
             email,
-            userType
+            userType,
          });
          await user.save();
          token = jwt.sign(
@@ -64,7 +64,7 @@ export const signUpOrLoginController = async (req, res, next) => {
       }
       res.status(201).json({
          message: "Success",
-         data: token,
+         data: { token, userType },
          status: true,
       });
    } catch (err) {
