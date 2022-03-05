@@ -24,4 +24,4 @@ export const domainSchema = new Schema(
   }
 );
 
-export default mongoose.model("Domain", domainSchema);
+export const Domain= mongoose.model("Domain", domainSchema);

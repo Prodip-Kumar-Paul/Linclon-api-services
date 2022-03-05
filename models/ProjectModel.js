@@ -27,7 +27,7 @@ const projectSchema = new Schema(
       required: true,
     },
 
-    tags: [{ type: Schema.Types.ObjectId, ref: "Skill", required: true }],
+    skills: [{ type: Schema.Types.ObjectId, ref: "Skill", required: true }],
     domains: [{ type: Schema.Types.ObjectId, ref: "Domain", required: true }],
 
     urgency: {

@@ -1,11 +1,11 @@
 import Project from "../models/ProjectModel.js";
-import Domain from "../models/DomainModel.js";
+import {Domain} from "../models/DomainModel.js";
 import User from "../models/UserModel.js";
 import axios from "axios";
 import apis from "../utils/apis.js";
 export const postProject = async (req, res, next) => {
    try {
-      const { name, description, teamSize, projectName, domains, urgency,tags } =
+      const { name, description, teamSize, projectName, domains, urgency,skills } =
          req.body;
 
       const user = await User.findOne({ _id: req.id }).lean();
@@ -36,7 +36,7 @@ export const postProject = async (req, res, next) => {
          name: name,
          description: description,
          teamSize: teamSize,
-         tags,
+         skills,
          domains,
          urgency: urgency,
          ownerId: user.githubId,

@@ -9,7 +9,7 @@ export const skillSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+     
     },
     isDeleted: {
       type: Boolean,

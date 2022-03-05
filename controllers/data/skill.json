@@ -1,0 +1,9 @@
+{
+  "skillData": [
+    { "_id": "621d08184f3de646b5256577", "name": "c++" },
+    { "_id": "621d08354f3de646b5256578", "name": "java" },
+    { "_id": "621d08424f3de646b5256579", "name": "javascript" },
+    { "_id": "621d08524f3de646b525657a", "name": "nodejs" },
+    { "_id": "621d085f4f3de646b525657b", "name": "react" }
+  ]
+}

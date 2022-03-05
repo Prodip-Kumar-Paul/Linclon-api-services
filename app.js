@@ -15,6 +15,8 @@ import { globalErrorHandler } from "./utils/errorHandler.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+import { checkData } from "./controllers/data/autoCreate.js";
+
 import testApis from "./apis/testApis.js";
 import authApis from "./apis/authApis.js";
 import userApis from "./apis/Github/userApis.js";
@@ -80,7 +82,7 @@ app.use((req, res, next) => {
    res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
    next();
 });
-
+checkData();
 app.use("/api/v1/test", testApis);
 app.use("/api/v1/auth", authApis);
 app.use("/api/v1/user", userApis);
