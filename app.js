@@ -16,8 +16,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 import { autoDomain } from "./controllers/autoCreate/autoDomaincreation.js";
-autoDomain();
+import {autoSkill} from "./controllers/autoCreate/autoSkillcreation.js";
 
+
+autoSkill();
+autoDomain();
 import testApis from "./apis/testApis.js";
 import authApis from "./apis/authApis.js";
 import userApis from "./apis/Github/userApis.js";
