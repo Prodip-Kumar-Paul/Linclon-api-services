@@ -9,15 +9,10 @@ export const skillSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     isDeleted: {
       type: Boolean,
       default: false,
-    },
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
     },
   },
   {
@@ -25,4 +20,4 @@ export const skillSchema = new Schema(
   }
 );
 
-export const Skill = mongoose.model("Skill", skillSchema);
+export default mongoose.model("Skill", skillSchema);
