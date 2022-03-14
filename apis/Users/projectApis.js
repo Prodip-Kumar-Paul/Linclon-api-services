@@ -9,7 +9,7 @@ import {
   getParticularRepo,
   getPRsDetails,
   getReadmeDetails,
-} from "../../controllers/githubControllers/projectControllers.js";
+} from "../../controllers/UserControllers/projectControllers.js";
 import { isAuthenticated } from "../../middlewares/isAuth.js";
 const router = express.Router();
 

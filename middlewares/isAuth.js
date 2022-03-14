@@ -63,15 +63,16 @@ export const isAuthenticatedAndAdmin = async (req, res, next) => {
          error.statusCode = 401;
          throw error;
       }
+     
       // console.log(decodedToken);
-      if (decodedToken.userType !== "Admin") {
+      if (decodedToken.type !== "Admin") {
          const error = new Error("Unauthorized");
          error.statusCode = 401;
          throw error;
       }
 
       req.id = decodedToken.id;
-      req.userType = decodedToken.userType;
+      req.userType = decodedToken.type;
       req.githubToken = decodedToken.githubToken;
 
       next();
