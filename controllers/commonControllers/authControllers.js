@@ -1,7 +1,7 @@
 import axios from "axios";
-import User from "../models/UserModel.js";
-import apis from "../utils/apis.js";
-import config from "../config/config.js";
+import User from "../../models/UserModel.js";
+import apis from "../../utils/apis.js";
+import config from "../../config/config.js";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res, next) => {

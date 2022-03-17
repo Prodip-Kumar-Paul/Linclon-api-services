@@ -1,7 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
-import { errorHandler } from "../utils/errorHandler.js";
-import { signUpOrLoginController } from "../controllers/authControllers.js";
+import { errorHandler } from "../../utils/errorHandler.js";
+import { signUpOrLoginController } from "../../controllers/commonControllers/authControllers.js";
 const router = express.Router();
 
 router.post(
